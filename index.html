@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		<input type="file" name="upfile" id="upfile" value="" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="js/LocalResizeIMG.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('#upfile').localResizeIMG({//#upfile为input：file id
+					width: 200,//返回图片宽度
+					quality: 0.5,//与原图片相比图片模糊度
+					success: function(result) {
+						var submitData = {
+							base64_string: result.clearBase64,
+						};
+						console.log(submitData)
+						$.ajax({
+							type: "POST",
+							url: "http://www.bjlykc.cn/index.php/Api/User/base64_upimg",//上传途径
+							data: submitData,
+							dataType: "json",
+							success: function(data) {
+								console.log(data);
+							}
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>
